@@ -22,10 +22,16 @@ const handler: NextApiHandler<ShortLink> = async (req, res) => {
   });
 
   if (!shortLink) {
-    return res.status(404).end();
+    return res
+      .status(404)
+      .setHeader("Cache-Control", "s-maxage=59, stale-while-revalidate")
+      .end();
   }
 
-  res.status(200).json(shortLink);
+  res
+    .status(200)
+    .setHeader("Cache-Control", "s-maxage=59, stale-while-revalidate")
+    .json(shortLink);
 };
 
 export default handler;
