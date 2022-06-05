@@ -10,8 +10,8 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
   const slug = url.pathname.split("/api/get-url/")[1];
   const shortLinkResponse = await fetch(`${url.origin}/api/get-url/${slug}`);
 
-  if (!shortLinkResponse.ok) {
-    return new Response(null, { status: 500 });
+  if (shortLinkResponse.status !== 200) {
+    return new Response(null, { status: shortLinkResponse.status });
   }
 
   const shortLink = await shortLinkResponse.json();
