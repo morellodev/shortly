@@ -1,3 +1,12 @@
+import {
+  Button,
+  FormControl,
+  FormErrorIcon,
+  FormErrorMessage,
+  Input,
+  SimpleGrid,
+  Stack,
+} from "@chakra-ui/react";
 import { GetServerSideProps, NextPage } from "next";
 
 interface Props {
@@ -27,20 +36,30 @@ const Home: NextPage<Props> = (props) => {
   const hasError = typeof props.status === "string";
 
   return (
-    <main>
-      <form method="get" action="/api/get-url">
-        <input
-          type="text"
-          name="slug"
-          aria-invalid={hasError}
-          defaultValue={props.slug}
-          placeholder="Slug"
-          required
-        />
-        <button type="submit">Lookup and open URL</button>
-      </form>
-      {hasError && <p>Not found</p>}
-    </main>
+    <SimpleGrid as="main" minH="100vh" placeItems="center">
+      <Stack
+        as="form"
+        direction={{ base: "column", md: "row" }}
+        method="get"
+        action="/api/get-url"
+      >
+        <FormControl isInvalid={hasError} isRequired>
+          <Input
+            type="text"
+            name="slug"
+            defaultValue={props.slug}
+            placeholder="Slug"
+          />
+          <FormErrorMessage>
+            <FormErrorIcon />
+            No matching URL found
+          </FormErrorMessage>
+        </FormControl>
+        <Button type="submit" flexShrink={0}>
+          Open URL
+        </Button>
+      </Stack>
+    </SimpleGrid>
   );
 };
 
