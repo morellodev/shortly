@@ -8,6 +8,7 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import { GetServerSideProps, NextPage } from "next";
+import Head from "next/head";
 
 interface Props {
   slug?: string;
@@ -36,30 +37,35 @@ const Home: NextPage<Props> = (props) => {
   const hasError = typeof props.status === "string";
 
   return (
-    <SimpleGrid as="main" minH="100vh" placeItems="center">
-      <Stack
-        as="form"
-        direction={{ base: "column", md: "row" }}
-        method="get"
-        action="/api/get-url"
-      >
-        <FormControl isInvalid={hasError} isRequired>
-          <Input
-            type="text"
-            name="slug"
-            defaultValue={props.slug}
-            placeholder="Slug"
-          />
-          <FormErrorMessage>
-            <FormErrorIcon />
-            No matching URL found
-          </FormErrorMessage>
-        </FormControl>
-        <Button type="submit" flexShrink={0}>
-          Open URL
-        </Button>
-      </Stack>
-    </SimpleGrid>
+    <>
+      <Head>
+        <title>Shortly</title>
+      </Head>
+      <SimpleGrid as="main" minH="100vh" placeItems="center">
+        <Stack
+          as="form"
+          direction={{ base: "column", md: "row" }}
+          method="get"
+          action="/api/get-url"
+        >
+          <FormControl isInvalid={hasError} isRequired>
+            <Input
+              type="text"
+              name="slug"
+              defaultValue={props.slug}
+              placeholder="Slug"
+            />
+            <FormErrorMessage>
+              <FormErrorIcon />
+              No matching URL found
+            </FormErrorMessage>
+          </FormControl>
+          <Button type="submit" flexShrink={0}>
+            Open URL
+          </Button>
+        </Stack>
+      </SimpleGrid>
+    </>
   );
 };
 
