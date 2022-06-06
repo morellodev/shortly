@@ -34,7 +34,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 };
 
 const Home: NextPage<Props> = (props) => {
-  const hasError = typeof props.status === "string";
+  const hasError = typeof props.status === "string" && props.status !== "200";
 
   return (
     <>
