@@ -24,13 +24,13 @@ const handler: NextApiHandler<ShortLink> = async (req, res) => {
   if (!shortLink) {
     return res
       .status(404)
-      .setHeader("Cache-Control", "s-maxage=59, stale-while-revalidate")
+      .setHeader("Cache-Control", "s-maxage=1, stale-while-revalidate=59")
       .end();
   }
 
   res
     .status(200)
-    .setHeader("Cache-Control", "s-maxage=59, stale-while-revalidate")
+    .setHeader("Cache-Control", "s-maxage=1, stale-while-revalidate=59")
     .json(shortLink);
 };
 
