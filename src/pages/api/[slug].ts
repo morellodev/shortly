@@ -1,6 +1,6 @@
 import type { ShortLink } from "@prisma/client";
 import type { NextApiHandler } from "next";
-import { prisma } from "../../../lib/db/client";
+import { prisma } from "../../lib/db/client";
 
 const handler: NextApiHandler<ShortLink> = async (req, res) => {
   if (req.method !== "GET") {
